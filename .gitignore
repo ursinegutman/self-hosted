@@ -1,0 +1,19 @@
+# Credentials and sensitive files
+*.env
+*.key
+*.pem
+users
+htpasswd
+
+# System and cache files
+*.log
+*.pyc
+__pycache__/
+*.swp
+*.swo
+*~
+
+# Runtime data
+collections/
+*.db
+*.sqlite
