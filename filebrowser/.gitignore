@@ -1,0 +1,17 @@
+# Credentials and secrets
+.env
+*.db
+*.key
+*.pem
+
+# Data directories
+data/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

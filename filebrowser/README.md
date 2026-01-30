@@ -25,11 +25,12 @@ Self-hosted file management and sharing platform for Ursine project at `https://
 
 Visit: `https://files.ber.computer`
 
-**Default Admin Credentials:**
-- Username: `admin`
-- Password: `admin12345678`
+**Credentials:**
+- Stored in `/root/self-hosted/filebrowser/.env`
+- Available as environment variables: `$FILEBROWSER_USERNAME`, `$FILEBROWSER_PASSWORD`
+- Also exported in `/root/.bashrc`
 
-⚠️ **IMPORTANT**: Change the password immediately after first login!
+⚠️ **IMPORTANT**: Credentials are stored in `.env` file - keep it secure!
 
 ### Upload Files via Web UI
 
@@ -122,10 +123,10 @@ filebrowser users rm <username>
 ### Get Authentication Token
 
 ```bash
-# Login to get token
+# Login to get token (using environment variables)
 curl -X POST https://files.ber.computer/api/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"admin12345678"}'
+  -d "{\"username\":\"$FILEBROWSER_USERNAME\",\"password\":\"$FILEBROWSER_PASSWORD\"}"
 ```
 
 Response:
@@ -165,26 +166,25 @@ curl -X POST https://files.ber.computer/api/resources/share/ \
 
 ## Claude Code Integration
 
-### Create Upload Skill
+### Upload Script
 
-Update `~/.claude/skills/file-upload/upload.sh`:
+The upload script at `~/.claude/skills/file-upload/upload.sh` should use environment variables:
 
 ```bash
 #!/bin/bash
 set -e
 
-FILEBROWSER_URL="https://files.ber.computer"
-USERNAME="admin"
-PASSWORD="admin12345678"
+# Load credentials from environment
+source /root/self-hosted/filebrowser/.env
 
 # Get token
 TOKEN=$(curl -s -X POST "$FILEBROWSER_URL/api/login" \
   -H "Content-Type: application/json" \
-  -d "{\"username\":\"$USERNAME\",\"password\":\"$PASSWORD\"}" \
+  -d "{\"username\":\"$FILEBROWSER_USERNAME\",\"password\":\"$FILEBROWSER_PASSWORD\"}" \
   | jq -r '.token')
 
 # Upload file
-curl -X POST "$FILEBROWSER_URL/api/resources/files/" \
+curl -X POST "$FILEBROWSER_UPLOAD_URL" \
   -H "Authorization: Bearer $TOKEN" \
   -F "file=@$1" \
   | jq -r '.url // "https://files.ber.computer/" + (.path | sub("^/";""))'
