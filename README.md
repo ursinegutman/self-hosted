@@ -37,7 +37,7 @@ self-hosted/
 
 ## Backup Notes
 
-- FileBrowser data: `/root/self-hosted/filebrowser/data/`
+- FileBrowser data: `/root/share/` (uploaded files)
 - FileBrowser database: `/root/self-hosted/filebrowser/filebrowser.db`
 - Radicale data: `/var/lib/radicale/collections`
 - Radicale config: `/etc/radicale/`

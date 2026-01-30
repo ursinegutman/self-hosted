@@ -72,7 +72,7 @@ journalctl -u filebrowser -f
 ### Config Location
 
 - **Database**: `/root/self-hosted/filebrowser/filebrowser.db`
-- **Files Root**: `/root/self-hosted/filebrowser/data/`
+- **Files Root**: `/root/share/` (outside git-tracked directory)
 - **Binary**: `/usr/local/bin/filebrowser`
 - **Service**: `/etc/systemd/system/filebrowser.service`
 
