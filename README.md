@@ -10,6 +10,13 @@ Each service integrates with one or more Claude Code skills (`/cal`, `/cal-add`,
 
 ## Services
 
+### [FileBrowser](./filebrowser/)
+- **What**: Web-based file manager and sharing platform
+- **URL**: https://files.ber.computer
+- **Purpose**: File storage and sharing for Ursine Claude Code skills
+- **Auth**: Required (username/password)
+- **See**: `filebrowser/README.md` for full documentation
+
 ### [Radicale](./radicale/)
 - **What**: CalDAV/CardDAV server for calendar and contact sync
 - **URL**: https://caldav.ber.computer
@@ -22,12 +29,16 @@ Each service integrates with one or more Claude Code skills (`/cal`, `/cal-add`,
 ```
 self-hosted/
 ├── README.md              # This file
+├── filebrowser/           # File manager
+│   └── README.md          # FileBrowser documentation
 └── radicale/              # CalDAV server
     └── README.md          # Radicale documentation
 ```
 
 ## Backup Notes
 
+- FileBrowser data: `/root/self-hosted/filebrowser/data/`
+- FileBrowser database: `/root/self-hosted/filebrowser/filebrowser.db`
 - Radicale data: `/var/lib/radicale/collections`
 - Radicale config: `/etc/radicale/`
 - Consider setting up automated backups for any data directories
@@ -35,6 +46,12 @@ self-hosted/
 ## Quick Reference
 
 ```bash
+# FileBrowser status
+systemctl status filebrowser
+
+# FileBrowser logs
+journalctl -u filebrowser -f
+
 # Radicale status
 systemctl status radicale
 
